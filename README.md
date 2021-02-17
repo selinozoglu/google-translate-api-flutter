@@ -1,6 +1,6 @@
-# translate
+# Translate My SMS
 
-A new Flutter application.
+Translates Turkish message to English using Google Translate Api.
 
 ## Getting Started
 
