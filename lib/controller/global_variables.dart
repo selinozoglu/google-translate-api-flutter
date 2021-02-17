@@ -1,0 +1,4 @@
+
+String gonderilecekMesajTurkce;
+String gonderilecekMesajIngilizce;
+
