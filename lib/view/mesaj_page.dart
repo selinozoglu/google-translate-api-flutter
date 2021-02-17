@@ -120,7 +120,7 @@ class _MessagePageScreenState extends State<MessagePageScreen> {
                 )),
             onPressed: () {
               setState(() {
-                mesajGonder('$gonderilecekMesajIngilizce', ['+905314541957']);
+                mesajGonder('$gonderilecekMesajIngilizce', ['0123']);
               });
             },
           ),
