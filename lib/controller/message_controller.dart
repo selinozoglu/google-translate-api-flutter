@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:translate/model/Ceviri.dart';
+import 'package:translate/model/CeviriModel.dart';
 import 'package:translate/controller/global_variables.dart';
 
 class Controller{
@@ -23,7 +23,8 @@ class Controller{
     "data": {
         "translations": [
             {
-                "translatedText": "good morning"
+                "translatedText": "Hello how are you? There is a presentation today",
+                "detectedSourceLanguage": "tr"
             }
         ]
     }

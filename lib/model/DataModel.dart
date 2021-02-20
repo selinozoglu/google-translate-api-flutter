@@ -1,4 +1,4 @@
-import 'package:translate/model/Translations.dart';
+import 'package:translate/model/TranslationsModel.dart';
 
 class Data{
   final List<Translations> translations;//data sınıfında translations listesi var
@@ -14,4 +14,16 @@ class Data{
     );
   }
 }
+/*
+{
+    "data": {
+        "translations": [
+            {
+                "translatedText": "Hello how are you? There is a presentation today",
+                "detectedSourceLanguage": "tr"
+            }
+        ]
+    }
+}
+ */
 

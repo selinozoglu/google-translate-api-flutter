@@ -12,4 +12,16 @@ class Translations{
     );
   }
 }
+/*
+{
+    "data": {
+        "translations": [
+            {
+                "translatedText": "Hello how are you? There is a presentation today",
+                "detectedSourceLanguage": "tr"
+            }
+        ]
+    }
+}
+ */
 

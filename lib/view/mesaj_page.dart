@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:translate/controller/global_variables.dart';
 import 'package:translate/controller/message_controller.dart';
-import 'package:translate/model/Ceviri.dart';
+import 'package:translate/model/CeviriModel.dart';
 
 
 TextEditingController textController = new TextEditingController();
 
-void mesajGonder(String message, List<String> recipents) async {
+void sendSms(String message, List<String> recipents) async {
   String _result = await sendSMS(message: message, recipients: recipents)
       .catchError((onError) {
     print(onError);
@@ -47,12 +47,17 @@ class _MessagePageScreenState extends State<MessagePageScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            child: TextField(
+            child: TextField(//gonderilecek turkçe mesaj inputu
+              style: TextStyle(
+                  fontSize: 24,
+                  height: 1.5,
+              ),
               controller: textController,
               decoration: InputDecoration(
                 icon: Icon(Icons.sms, color: Colors.deepOrange),
-                hintText: "Gonderilecek Turkce Mesaj.",
+                hintText: "Çevirilecek Turkce mesajı buraya yazın...",
                 border: OutlineInputBorder(),
+                hintStyle: TextStyle(fontSize: 16),
               ),
               onChanged: (text) {
                 gonderilecekMesajTurkce = text;
@@ -60,10 +65,10 @@ class _MessagePageScreenState extends State<MessagePageScreen> {
               },
             ),
           ),
-          RaisedButton(
+          RaisedButton( //çevir butonu
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.white)),
+                side: BorderSide(color: Colors.deepPurple)),
             color: Colors.white,
             child: Container(
                 width: 100,
@@ -71,7 +76,7 @@ class _MessagePageScreenState extends State<MessagePageScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Cevir'),
+                    Text('Cevir',style: TextStyle(fontSize: 18),),
                     Icon(
                       Icons.refresh,
                       color: Colors.deepPurple,
@@ -79,28 +84,29 @@ class _MessagePageScreenState extends State<MessagePageScreen> {
                   ],
                 )),
             onPressed: () {
-              setState(() {//sayfayı yenileyen fonk
-                service().then((value) {//sonucu parçalayıp
+              setState(() {//frameworke durumun değiştiğini haber verir
+                service().then((value) {
                   gonderilecekMesajIngilizce =
-                      value.ceviriData.translations[0].translatedText;//bunu aldı
+                      value.ceviriData.translations[0].translatedText;
                   print(gonderilecekMesajIngilizce);
                 });
               });
             },
           ),
-          Container(
+          Container( //gonderilecek ingilizce mesajı gosteren container
             child: FutureBuilder<Ceviri>(
                 future: service(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
                     return Text(gonderilecekMesajIngilizce != null
-                        ? 'Title from Post JSON : ${gonderilecekMesajIngilizce}'
-                        : '');
+                        ? '${gonderilecekMesajIngilizce}'
+                        : '',
+                    style: TextStyle(fontSize: 22),);
                   else
                     return CircularProgressIndicator();
                 }),
           ),
-          RaisedButton(
+          RaisedButton( ///sms gonder butonu
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.red)),
@@ -111,7 +117,7 @@ class _MessagePageScreenState extends State<MessagePageScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Gönder'),
+                    Text('Gönder',style: TextStyle(fontSize: 16),),
                     Icon(
                       Icons.send,
                       color: Colors.deepOrange,
@@ -120,7 +126,7 @@ class _MessagePageScreenState extends State<MessagePageScreen> {
                 )),
             onPressed: () {
               setState(() {
-                mesajGonder('$gonderilecekMesajIngilizce', ['+905314541957']);
+                sendSms('$gonderilecekMesajIngilizce', ['0123']);
               });
             },
           ),
