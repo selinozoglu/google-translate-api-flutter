@@ -5,7 +5,7 @@ import 'package:translate/controller/global_variables.dart';
 
 class Controller{
   String toLanguageCode = 'en';
-  String apiKey = '1234567890';
+  String apiKey = 'AIzaSyC8cBHedYNMTlUAB2pSQa-Ommj86Dbfgxo';
 
   Future<Ceviri> getJsonBody() async{
     final response = await http.get(
